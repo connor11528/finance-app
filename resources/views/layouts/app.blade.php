@@ -11,6 +11,7 @@
   </head>
 
   <body>
+    @auth
     <div id="app">
       <nav class="uk-navbar-container uk-margin" uk-navbar>
         <div class="uk-navbar-left">
@@ -63,6 +64,12 @@
         @yield('content')
       </main>
     </div>
+
+    @else
+      <main>
+        @yield('content')
+      </main>
+    @endauth
 
     <script src="{{ mix('js/app.js') }}"></script>
   </body>

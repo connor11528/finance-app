@@ -1,0 +1,44 @@
+section.balance-menu {
+  .balance-actions {
+    > div {
+      p {
+        margin-bottom: 0;
+        color: $white;
+        font: {
+          size: 33px;
+        }
+      }
+
+      >p, >button {
+        margin-right: 1.5rem;
+      }
+    }
+  }
+
+  .balance-details {
+    small {
+      color: $light-gray;
+      font: {
+        size: 18px;
+        weight: bold;
+      }
+    }
+
+    p {
+      margin-top: 0;
+      color: $green;
+      font: {
+        size: 44px;
+        weight: 200;
+      }
+
+      span {
+        font-size: 80%;
+      }
+    }
+
+    @include breakpoint(medium) {
+      text-align: right;
+    }
+  }
+}

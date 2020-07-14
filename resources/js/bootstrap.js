@@ -1,20 +1,25 @@
 import UIkitIcons from 'uikit/dist/js/uikit-icons';
+import axios from 'axios';
+import Vue from 'vue';
+import Vuex from 'vuex';
+import VueAxios from 'vue-axios';
 
+try {
+  window.$ = window.jQuery = $;
+} catch (e) {}
+
+// Setup the Base URL for all API requests
+let baseURL = `${location.protocol}//${location.hostname}`;
+
+// If there's a port (Browsersync) add it
+if (location.port) {
+  baseURL = baseURL + ':' + location.port;
+}
+
+// Set the Axios base URL
+axios.defaults.baseURL = `${baseURL}/api`;
+
+// Components
+Vue.use(Vuex);
+Vue.use(VueAxios, axios);
 UIkit.use(UIkitIcons);
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo';
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
