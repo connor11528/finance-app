@@ -2,9 +2,13 @@
   <div>
     <nav-bar />
     <balance-menu
-    @transaction-added="getTotalBalance"
+    @transaction-added="getDashboardData"
     :total-balance="totalBalance" />
-    <transaction-list />
+
+    <transaction-list
+    @transaction-deleted="getDashboardData"
+    @transaction-edited="getDashboardData"
+    :groups="groups" />
   </div>
 </template>
 
@@ -16,7 +20,8 @@ import TransactionList from './TransactionList';
 export default {
   data() {
     return  {
-      totalBalance: 0
+      totalBalance: 0,
+      groups: []
     }
   },
 
@@ -32,10 +37,22 @@ export default {
         this.totalBalance = parseFloat(data.total_balance);
       });
     },
+
+    getTransactions() {
+      this.$http.get('transactions').then(({data}) => {
+
+        this.groups = data.transactions;
+      });
+    },
+
+    getDashboardData() {
+      this.getTotalBalance();
+      this.getTransactions();
+    }
   },
 
   mounted() {
-    this.getTotalBalance();
+    this.getDashboardData();
   }
 }
 </script>

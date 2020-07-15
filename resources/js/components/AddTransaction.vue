@@ -37,21 +37,20 @@
 <script>
 import FlatPickr from 'vue-flatpickr-component';
 import { Money } from 'v-money'
+const currentDate = new Date();
 
 export default {
   data() {
     return {
       transaction: {
         label: null,
-        date: null,
+        date: currentDate,
         amount: 0,
       },
       flatPickrConfig: {
         enableTime: true,
         altInput: true,
-        altFormat: 'j F, Y at h:i K',
-        defaultMinute: (new Date()).getMinutes(),
-        defaultHour: (new Date()).getHours()
+        altFormat: 'j M, Y \\a\\t G:i K'
       },
       money: {
         decimal: '.',

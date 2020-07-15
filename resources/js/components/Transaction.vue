@@ -3,8 +3,8 @@
     <section class="transaction--details">
       <div class="uk-flex-middle uk-flex-between" uk-grid>
         <div class="uk-width-3-4@s uk-width-1-1">
-          <p class="name" v-text="name"></p>
-          <span class="date" v-text="date"></span>
+          <p class="name" v-text="transaction.label"></p>
+          <span class="date" v-text="transaction.date"></span>
         </div>
         <div class="uk-width-expand@s uk-width-1-1 invisible">
           <ul class="uk-subnav">
@@ -12,12 +12,12 @@
               <a @click="editTransaction">EDIT</a>
             </li>
             <li>
-              <a>DELETE</a>
+              <a @click="deleteTransaction">DELETE</a>
             </li>
           </ul>
         </div>
         <div class="uk-width-auto@s uk-width-1-1">
-          <span class="amount positive" v-html="amount">
+          <span class="amount positive" v-html="transaction.amount">
           </span>
         </div>
       </div>
@@ -26,16 +26,18 @@
     <section class="uk-section uk-section-small transaction--edit" v-if="edit">
       <div uk-grid>
         <div class="uk-width-2-5">
-          <label class="uk-form-label" for="label-edit">Label</label>
-          <input class="uk-input uk-form-large" type="text" :value="name" id="label-edit">
+          <label class="uk-form-label" for="label-add">Label</label>
+          <input class="uk-input uk-form-large" type="text" v-model="transaction.label" id="label-add">
         </div>
         <div class="uk-width-2-5">
-          <label class="uk-form-label" for="date-edit">Date</label>
-          <input class="uk-input uk-form-large" type="text" :value="date" id="date-edit">
+          <label class="uk-form-label" for="date-add">Date</label>
+          <flat-pickr :config="flatPickrConfig" class="uk-input uk-form-large" v-model="transaction.date"
+          id="date-add" ref="datepicker" required></flat-pickr>
         </div>
         <div class="uk-width-1-5">
-          <label class="uk-form-label" for="amount-edit">Amount</label>
-          <input class="uk-input uk-form-large" type="text" :value="amount" id="amount-edit">
+          <label class="uk-form-label" for="amount-add">Amount</label>
+          <money class="uk-input uk-form-large" v-model.lazy="transaction.amount" v-bind="money" id="amount-add"
+          required></money>
         </div>
       </div>
     </section>
@@ -43,33 +45,66 @@
     <section class="uk-section uk-section-small transaction--submit" v-if="edit">
       <div class="uk-flex uk-flex-right">
         <button class="uk-button uk-button-large uk-button-light-blue" @click="editTransaction">Cancel</button>
-        <button class="uk-button uk-button-large uk-button-primary">Update Entry</button>
+        <button class="uk-button uk-button-large uk-button-primary" @click="updateTransaction">Update Entry</button>
       </div>
     </section>
   </section>
 </template>
 
 <script>
+import FlatPickr from 'vue-flatpickr-component';
+import { Money } from 'v-money'
+
 export default {
   data() {
     return {
       edit: false,
+      flatPickrConfig: {
+        enableTime: true,
+        altInput: true,
+        altFormat: 'j M, Y \\a\\t G:i K'
+      },
+      money: {
+        decimal: '.',
+        thousands: ',',
+        prefix: '$',
+        suffix: '',
+        precision: 2,
+        masked: false
+      }
     }
   },
+
   props: {
-    name: {
-      type: String
-    },
-    amount: {
-      type: Number
-    },
-    date: {
-      type: String
+    transaction: {
+      type: Object
     }
   },
+
+  components: {
+    FlatPickr,
+    Money
+  },
+
   methods: {
     editTransaction() {
       this.edit = !this.edit;
+    },
+
+    updateTransaction() {
+      this.$http
+      .put(`transactions/${this.transaction.id}`, this.transaction)
+      .then(({data}) => {
+        this.editTransaction();
+
+        this.$emit('transaction-edited', {transaction: data.transaction});
+      })
+    },
+
+    deleteTransaction() {
+      this.$http
+      .delete(`transactions/${this.transaction.id}`)
+      .then(({data}) => this.$emit('transaction-deleted', {transaction: data.transaction}));
     }
   },
 }

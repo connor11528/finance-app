@@ -14,7 +14,13 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = Transaction::orderBy('created_at')->get()->groupBy(function ($item) {
+            return $item->date->format('Y-m-d');
+        });
+
+        return response()->json([
+            'transactions' => $transactions
+        ], 200);
     }
 
     /**
@@ -27,9 +33,7 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::create($request->all());
 
-        return response()->json([
-            'transaction' => $transaction
-        ], 200);
+        return $this->show($transaction);
     }
 
     /**
@@ -40,7 +44,9 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        return response()->json([
+            'transaction' => $transaction
+        ], 200);
     }
 
     /**
@@ -52,7 +58,9 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $transaction->update($request->all());
+
+        return $this->show($transaction->fresh());
     }
 
     /**
@@ -63,6 +71,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+
+        return $this->show($transaction);
     }
 }
