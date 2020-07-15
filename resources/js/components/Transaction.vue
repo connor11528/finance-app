@@ -4,7 +4,7 @@
       <div class="uk-flex-middle uk-flex-between" uk-grid>
         <div class="uk-width-3-4@s uk-width-1-1">
           <p class="name" v-text="transaction.label"></p>
-          <span class="date" v-text="transaction.date"></span>
+          <span class="date">{{ transaction.date | transactionDate }}</span>
         </div>
         <div class="uk-width-expand@s uk-width-1-1 invisible">
           <ul class="uk-subnav">
@@ -17,7 +17,10 @@
           </ul>
         </div>
         <div class="uk-width-auto@s uk-width-1-1">
-          <span class="amount positive" v-html="transaction.amount">
+          <span
+          class="amount"
+          :class="prettyFormat(transaction.amount).sign"
+          v-html="prettyFormat(transaction.amount).value">
           </span>
         </div>
       </div>
@@ -54,6 +57,7 @@
 <script>
 import FlatPickr from 'vue-flatpickr-component';
 import { Money } from 'v-money'
+import CurrencyMixin from '../mixins/currency';
 
 export default {
   data() {
@@ -74,6 +78,8 @@ export default {
       }
     }
   },
+
+  mixins: [CurrencyMixin],
 
   props: {
     transaction: {

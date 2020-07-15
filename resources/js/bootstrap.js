@@ -3,6 +3,7 @@ import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueAxios from 'vue-axios';
+import { groupDate, transactionDate, prettyCurrency } from './filters';
 
 try {
   window.$ = window.jQuery = $;
@@ -23,3 +24,8 @@ axios.defaults.baseURL = `${baseURL}/api`;
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 UIkit.use(UIkitIcons);
+
+// Filters
+Vue.filter('groupDate', groupDate);
+Vue.filter('transactionDate', transactionDate);
+Vue.filter('prettyCurrency', prettyCurrency);

@@ -17,7 +17,10 @@
         </div>
         <div class="uk-width-auto@s uk-width-1-1 balance-details">
           <small>TOTAL BALANCE</small>
-          <p class="balance">{{ totalBalance }}</p>
+          <p
+          class="balance"
+          :class="prettyFormat(totalBalance).sign"
+          v-html="prettyFormat(totalBalance).value"></p>
         </div>
       </div>
     </div>
@@ -28,10 +31,12 @@
 
 <script>
 import AddTransaction from './AddTransaction';
+import CurrencyMixin from '../mixins/currency';
 
 export default {
   props: ['totalBalance'],
   components: {AddTransaction},
+  mixins: [CurrencyMixin],
   methods: {
     addTransaction() {
       UIkit.modal('#modal-add-transaction').show();

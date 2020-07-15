@@ -14,12 +14,28 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        $groups = [];
+
         $transactions = Transaction::orderBy('created_at')->get()->groupBy(function ($item) {
             return $item->date->format('Y-m-d');
         });
 
+        foreach ($transactions as $group => $transactions) {
+            $balance = 0;
+
+            foreach ($transactions as $transaction) {
+                $balance += $transaction->amount;
+            }
+
+            $groups[] = [
+                'date' => $group,
+                'transactions' => $transactions,
+                'balance' => $balance
+            ];
+        }
+
         return response()->json([
-            'transactions' => $transactions
+            'groups' => $groups
         ], 200);
     }
 

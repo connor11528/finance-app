@@ -34,14 +34,22 @@ section.transaction {
     span.amount {
       color: $black;
       font-weight: 500;
+      font-size: 22px;
+
+      &::before {
+        content: '- ';
+      }
 
       &.positive {
         color: $green;
-        font-size: 22px;
 
-        span {
-          font-size: 80%;
+        &::before {
+          content: '+ ';
         }
+      }
+
+      span {
+        font-size: 80%;
       }
     }
   }

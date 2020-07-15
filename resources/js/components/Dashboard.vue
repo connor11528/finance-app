@@ -40,8 +40,7 @@ export default {
 
     getTransactions() {
       this.$http.get('transactions').then(({data}) => {
-
-        this.groups = data.transactions;
+        this.groups = data.groups;
       });
     },
 

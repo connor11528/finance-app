@@ -12791,12 +12791,18 @@ section.balance-menu .balance-details small {
 }
 section.balance-menu .balance-details p {
   margin-top: 0;
-  color: #00b357;
+  color: #e2e4eb;
   font-size: 44px;
   font-weight: 200;
 }
 section.balance-menu .balance-details p span {
   font-size: 80%;
+}
+section.balance-menu .balance-details p.negative::before {
+  content: "- ";
+}
+section.balance-menu .balance-details p.positive {
+  color: #00b357;
 }
 @media print, screen and (min-width: 40em) {
   section.balance-menu .balance-details {
@@ -12820,15 +12826,22 @@ section.transaction-list header span.date {
   letter-spacing: 1px;
 }
 section.transaction-list header span.balance {
+  margin-right: 2rem;
   color: #7a7b7d;
   font-size: 24px;
   font-weight: 500;
+}
+section.transaction-list header span.balance::before {
+  content: "- ";
 }
 section.transaction-list header span.balance span {
   font-size: 80%;
 }
 section.transaction-list header span.balance.positive {
   color: #00b357;
+}
+section.transaction-list header span.balance.positive::before {
+  content: "+ ";
 }
 
 section.transaction {
@@ -12859,12 +12872,18 @@ section.transaction--details:hover .invisible {
 section.transaction--details span.amount {
   color: #000000;
   font-weight: 500;
+  font-size: 22px;
+}
+section.transaction--details span.amount::before {
+  content: "- ";
 }
 section.transaction--details span.amount.positive {
   color: #00b357;
-  font-size: 22px;
 }
-section.transaction--details span.amount.positive span {
+section.transaction--details span.amount.positive::before {
+  content: "+ ";
+}
+section.transaction--details span.amount span {
   font-size: 80%;
 }
 section.transaction--edit {
