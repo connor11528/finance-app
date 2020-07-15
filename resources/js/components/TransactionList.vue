@@ -8,7 +8,7 @@
               Today
             </span>
 
-            <span class="balance positive" v-html="prettyFormat(5000)">
+            <span class="balance positive" v-text="'50.00'">
             </span>
           </header>
           <section>
@@ -28,7 +28,7 @@
               Yesterday
             </span>
 
-            <span class="balance negative" v-html="prettyFormat(50000)">
+            <span class="balance negative" v-text="'50.00'">
             </span>
           </header>
           <section>
@@ -48,7 +48,6 @@
 
 <script>
 import Transaction from './Transaction';
-import currencyDisplay from '../mixins/currencyDisplay';
 
 export default {
   data() {
@@ -57,20 +56,18 @@ export default {
         {
           id: 1,
           name: "Rent",
-          amount: 60035,
+          amount: 600.35,
           date: '20 May, 2020 at 10:55 PM'
         },
         {
           id: 2,
-          name: "Power Bill",
-          amount: 8510,
+          name: 'Power Bill',
+          amount: 85.10,
           date: '20 May, 2020 at 10:55 PM'
         },
       ]
     }
   },
-
-  mixins: [currencyDisplay],
 
   components: {
     Transaction

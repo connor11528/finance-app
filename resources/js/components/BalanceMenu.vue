@@ -17,7 +17,7 @@
         </div>
         <div class="uk-width-auto@s uk-width-1-1 balance-details">
           <small>TOTAL BALANCE</small>
-          <p class="balance" v-html="prettyFormat(172500)"></p>
+          <p class="balance" v-html="1752.00"></p>
         </div>
       </div>
     </div>
@@ -27,12 +27,9 @@
 </template>
 
 <script>
-import '../mixins/currencyDisplay';
-import currencyDisplay from '../mixins/currencyDisplay';
 import AddTransaction from './AddTransaction';
 
 export default {
-  mixins: [currencyDisplay],
   components: {AddTransaction},
   methods: {
     addTransaction() {

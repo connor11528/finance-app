@@ -17,7 +17,7 @@
           </ul>
         </div>
         <div class="uk-width-auto@s uk-width-1-1">
-          <span class="amount positive" v-html="prettyFormat(amount)">
+          <span class="amount positive" v-html="amount">
           </span>
         </div>
       </div>
@@ -35,7 +35,7 @@
         </div>
         <div class="uk-width-1-5">
           <label class="uk-form-label" for="amount-edit">Amount</label>
-          <input class="uk-input uk-form-large" type="text" :value="plainFormat(amount)" id="amount-edit">
+          <input class="uk-input uk-form-large" type="text" :value="amount" id="amount-edit">
         </div>
       </div>
     </section>
@@ -50,15 +50,12 @@
 </template>
 
 <script>
-import currencyDisplay from  '../mixins/currencyDisplay';
-
 export default {
   data() {
     return {
       edit: false,
     }
   },
-  mixins: [currencyDisplay],
   props: {
     name: {
       type: String
