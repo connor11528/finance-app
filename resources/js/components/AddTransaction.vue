@@ -1,5 +1,5 @@
 <template>
-  <div id="modal-add-transaction" uk-modal>
+  <div id="modal-add-transaction" uk-modal="container: .balance-menu">
     <div class="uk-modal-dialog">
       <form @submit.prevent="submitTransaction">
         <div class="uk-modal-header">
@@ -72,7 +72,16 @@ export default {
   methods: {
     submitTransaction() {
       this.$http.post('transactions', this.transaction)
-    }
+      .then(({data}) => {
+        this.transaction = {
+          label: null,
+          date: null,
+          amount: 0,
+        }
+
+        this.$emit('transaction-added', {data: data.transaction});
+      })
+    },
   }
 }
 </script>

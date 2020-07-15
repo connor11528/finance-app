@@ -17,12 +17,12 @@
         </div>
         <div class="uk-width-auto@s uk-width-1-1 balance-details">
           <small>TOTAL BALANCE</small>
-          <p class="balance" v-html="1752.00"></p>
+          <p class="balance">{{ totalBalance }}</p>
         </div>
       </div>
     </div>
 
-    <add-transaction></add-transaction>
+    <add-transaction v-on="$listeners" @transaction-added="closeModal"></add-transaction>
   </section>
 </template>
 
@@ -30,10 +30,15 @@
 import AddTransaction from './AddTransaction';
 
 export default {
+  props: ['totalBalance'],
   components: {AddTransaction},
   methods: {
     addTransaction() {
       UIkit.modal('#modal-add-transaction').show();
+    },
+
+    closeModal() {
+      UIkit.modal('#modal-add-transaction').hide();
     }
   }
 }
