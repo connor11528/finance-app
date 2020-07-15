@@ -30,9 +30,11 @@ nav.uk-navbar-container {
         }
 
         span {
-          font-weight: 700;
-          font-size: 18px;
           color: $darker-gray;
+          font: {
+            size: 18px;
+            weight: 700;
+          }
         }
       }
     }

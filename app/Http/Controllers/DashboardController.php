@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $total_balance = DB::table('transactions')->sum('amount');
 
         return response()->json([
-            'total_balance' => ($total_balance / 100)
+            'total_balance' => number_format(($total_balance / 100), 2, '.', '')
         ], 200);
     }
 }

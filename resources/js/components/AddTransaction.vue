@@ -53,14 +53,13 @@
 <script>
   import FlatPickr from 'vue-flatpickr-component';
   import { Money } from 'v-money'
-  const currentDate = new Date();
 
   export default {
     data() {
       return {
         transaction: {
           label: null,
-          date: currentDate,
+          date: null,
           amount: 0,
         },
         flatPickrConfig: {
@@ -90,7 +89,7 @@
         .then(({data}) => {
           this.transaction = {
             label: null,
-            date: new Date(),
+            date: null,
             amount: 0,
           }
 

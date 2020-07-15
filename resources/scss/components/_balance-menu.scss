@@ -4,9 +4,7 @@ section.balance-menu {
       p {
         margin-bottom: 0;
         color: $white;
-        font: {
-          size: 33px;
-        }
+        font-size: 33px;
       }
 
       >p, >button {
@@ -27,7 +25,6 @@ section.balance-menu {
     p {
       margin-top: 0;
       color: $lightest-gray;
-
       font: {
         size: 44px;
         weight: 200;

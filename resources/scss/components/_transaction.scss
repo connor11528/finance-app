@@ -21,8 +21,10 @@ section.transaction {
     }
 
     span.date {
-      font-weight: 400;
-      font-size: 18px;
+      font: {
+        size: 18px;
+        weight: 400;
+      }
     }
 
     .invisible {
@@ -38,8 +40,10 @@ section.transaction {
 
     span.amount {
       color: $black;
-      font-weight: 500;
-      font-size: 22px;
+      font: {
+        size: 22px;
+        weight: 500
+      }
 
       &::before {
         content: '- ';

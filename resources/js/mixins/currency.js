@@ -9,12 +9,19 @@ export default {
     prettyFormat: function (amount) {
       const sign = Math.sign(amount);
       const isPositive = (sign === 0 || sign === 1);
-      let formatted = parseFloat(amount.toString().replace('-', '')).toFixed(2).split('.');
+      const segments = parseFloat(
+        amount
+        .toString()
+        .replace(/-/g, '')
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ','))
+        .toFixed(2)
+        .split('.');
+
+      const dollars = segments[0];
+      const cents = `<span>${segments[1]}</span>`;
 
       return {
-        value: `
-          $${formatted[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}.
-          <span>${formatted[1]}</span>`,
+        value: `$${dollars}.${cents}`,
         sign: isPositive ? 'positive' : 'negative'
       };
     },
