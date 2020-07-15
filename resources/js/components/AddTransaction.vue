@@ -24,6 +24,7 @@
               class="uk-input uk-form-large"
               v-model="transaction.date"
               id="date-add"
+              ref="datepicker"
               required></flat-pickr>
             </div>
 
@@ -52,7 +53,7 @@
 
 <script>
   import FlatPickr from 'vue-flatpickr-component';
-  import { Money } from 'v-money'
+  import { Money } from 'v-money';
 
   export default {
     data() {
@@ -87,15 +88,24 @@
       submitTransaction() {
         this.$http.post('transactions', this.transaction)
         .then(({data}) => {
-          this.transaction = {
-            label: null,
-            date: null,
-            amount: 0,
-          }
-
           this.$emit('transaction-added', {data: data.transaction});
         })
       },
+    },
+
+    mounted() {
+      UIkit.util.on(this.$el, 'hidden', () => {
+        this.transaction = {
+          label: null,
+          date: null,
+          amount: 0,
+        }
+      });
+
+      UIkit.util.on(this.$el, 'beforeshow', () => {
+        const flatpickr = this.$refs.datepicker.fp;
+        flatpickr.setDate(new Date());
+      });
     }
   }
 </script>

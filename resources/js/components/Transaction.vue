@@ -72,7 +72,7 @@
 
 <script>
   import FlatPickr from 'vue-flatpickr-component';
-  import { Money } from 'v-money'
+  import { Money } from 'v-money';
   import CurrencyMixin from '../mixins/currency';
 
   export default {
