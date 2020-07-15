@@ -74,7 +74,7 @@ export default {
       .then(({data}) => {
         this.transaction = {
           label: null,
-          date: null,
+          date: new Date(),
           amount: 0,
         }
 

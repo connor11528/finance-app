@@ -8,6 +8,8 @@
     <transaction-list
     @transaction-deleted="getDashboardData"
     @transaction-edited="getDashboardData"
+    @paginate-list="paginateList"
+    :pagination="pagination"
     :groups="groups" />
   </div>
 </template>
@@ -21,6 +23,7 @@ export default {
   data() {
     return  {
       totalBalance: 0,
+      pagination: [],
       groups: []
     }
   },
@@ -38,15 +41,24 @@ export default {
       });
     },
 
-    getTransactions() {
-      this.$http.get('transactions').then(({data}) => {
-        this.groups = data.groups;
+    getTransactions(page = 1) {
+      this.$http.get('transactions', {
+        params: {
+          page
+        }
+      }).then(({data}) => {
+        this.pagination = data.pagination;
+        this.groups = [...data.groups];
       });
     },
 
     getDashboardData() {
       this.getTotalBalance();
       this.getTransactions();
+    },
+
+    paginateList(data) {
+      this.getTransactions(data.page);
     }
   },
 
