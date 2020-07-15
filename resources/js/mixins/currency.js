@@ -1,5 +1,5 @@
 /**
- * Formats cents to pretty dollars
+ * Formats cents to pretty/plain dollars
  *
  * @param  amount
  * @return string

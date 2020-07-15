@@ -47,7 +47,7 @@
         <div>
           <div class="uk-flex-center uk-child-width-1-2" uk-grid>
             <div class="uk-alert-primary uk-border-radius uk-text-center" uk-alert>
-                <p>No Transactions Found...</p>
+              <p>No Entries Found</p>
             </div>
           </div>
         </div>
@@ -57,46 +57,38 @@
 </template>
 
 <script>
-import Transaction from './Transaction';
-import CurrencyMixin from '../mixins/currency';
+  import Transaction from './Transaction';
+  import CurrencyMixin from '../mixins/currency';
 
-export default {
-  data() {
-    return {
-      groupValue: []
-    }
-  },
-
-  props: ['pagination', 'groups'],
-
-  mixins: [CurrencyMixin],
-
-  computed: {
-    onFirstPage() {
-      return this.pagination.current_page === 1;
+  export default {
+    data() {
+      return {
+        groupValue: []
+      }
     },
 
-    hasMorePages() {
-      return this.pagination.current_page < this.pagination.last_page;
+    props: ['pagination', 'groups'],
+
+    mixins: [CurrencyMixin],
+
+    computed: {
+      onFirstPage() {
+        return this.pagination.current_page === 1;
+      },
+
+      hasMorePages() {
+        return this.pagination.current_page < this.pagination.last_page;
+      }
+    },
+
+    components: {
+      Transaction
+    },
+
+    methods: {
+      paginate(page) {
+        this.$emit('paginate-list', {page});
+      }
     }
-  },
-
-  components: {
-    Transaction
-  },
-
-  methods: {
-    paginate(page) {
-      this.$emit('paginate-list', {page});
-    }
-  },
-
-  updated() {
-
   }
-}
 </script>
-
-<style>
-
-</style>

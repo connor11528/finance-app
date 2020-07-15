@@ -31,17 +31,3 @@ export function transactionDate(date) {
 
   return theMoment.format('D MMMM, YYYY') + ' at ' + theMoment.format('h:mm A');
 }
-
-/**
-* Currency Formatter
-*
-* @param  number value
-* @return string
-*/
-export function prettyCurrency(amount) {
-  const sign = Math.sign(amount);
-  const isPositive = (sign === 0 || sign === 1);
-
-  let segments = amount.toString().split('.');
-  return `$${segments[0]}.<span>${segments[1]}</span>`;
-}

@@ -6,6 +6,7 @@
           <p class="name" v-text="transaction.label"></p>
           <span class="date">{{ transaction.date | transactionDate }}</span>
         </div>
+
         <div class="uk-width-small@s uk-width-1-1 invisible">
           <ul class="uk-subnav">
             <li>
@@ -16,6 +17,7 @@
             </li>
           </ul>
         </div>
+
         <div class="uk-width-auto@s uk-width-1-1">
           <span
           class="amount"
@@ -30,16 +32,30 @@
       <div uk-grid>
         <div class="uk-width-2-5">
           <label class="uk-form-label" for="label-add">Label</label>
-          <input class="uk-input uk-form-large" type="text" v-model="transaction.label" id="label-add">
+          <input
+          class="uk-input uk-form-large"
+          type="text"
+          v-model="transaction.label"
+          id="label-add">
         </div>
+
         <div class="uk-width-2-5">
           <label class="uk-form-label" for="date-add">Date</label>
-          <flat-pickr :config="flatPickrConfig" class="uk-input uk-form-large" v-model="transaction.date"
-          id="date-add" ref="datepicker" required></flat-pickr>
+          <flat-pickr
+          :config="flatPickrConfig"
+          class="uk-input uk-form-large"
+          v-model="transaction.date"
+          id="date-add"
+          required></flat-pickr>
         </div>
+
         <div class="uk-width-1-5">
           <label class="uk-form-label" for="amount-add">Amount</label>
-          <money class="uk-input uk-form-large" v-model.lazy="transaction.amount" v-bind="money" id="amount-add"
+          <money
+          class="uk-input uk-form-large"
+          v-model.lazy="transaction.amount"
+          v-bind="money"
+          id="amount-add"
           required></money>
         </div>
       </div>
@@ -55,67 +71,63 @@
 </template>
 
 <script>
-import FlatPickr from 'vue-flatpickr-component';
-import { Money } from 'v-money'
-import CurrencyMixin from '../mixins/currency';
+  import FlatPickr from 'vue-flatpickr-component';
+  import { Money } from 'v-money'
+  import CurrencyMixin from '../mixins/currency';
 
-export default {
-  data() {
-    return {
-      edit: false,
-      flatPickrConfig: {
-        enableTime: true,
-        altInput: true,
-        altFormat: 'j M, Y \\a\\t G:i K'
-      },
-      money: {
-        decimal: '.',
-        thousands: ',',
-        prefix: '$',
-        suffix: '',
-        precision: 2,
-        masked: false
+  export default {
+    data() {
+      return {
+        edit: false,
+        flatPickrConfig: {
+          enableTime: true,
+          altInput: true,
+          altFormat: 'j M, Y \\a\\t G:i K'
+        },
+        money: {
+          decimal: '.',
+          thousands: ',',
+          prefix: '$',
+          suffix: '',
+          precision: 2,
+          masked: false
+        }
       }
-    }
-  },
-
-  mixins: [CurrencyMixin],
-
-  props: {
-    transaction: {
-      type: Object
-    }
-  },
-
-  components: {
-    FlatPickr,
-    Money
-  },
-
-  methods: {
-    editTransaction() {
-      this.edit = !this.edit;
     },
 
-    updateTransaction() {
-      this.$http
-      .put(`transactions/${this.transaction.id}`, this.transaction)
-      .then(({data}) => {
-        this.editTransaction();
+    mixins: [CurrencyMixin],
 
-        this.$emit('transaction-edited', {transaction: data.transaction});
-      })
+    props: {
+      transaction: {
+        type: Object
+      }
     },
 
-    deleteTransaction() {
-      this.$http
-      .delete(`transactions/${this.transaction.id}`)
-      .then(({data}) => this.$emit('transaction-deleted', {transaction: data.transaction}));
-    }
-  },
-}
+    components: {
+      FlatPickr,
+      Money
+    },
+
+    methods: {
+      editTransaction() {
+        this.edit = !this.edit;
+      },
+
+      updateTransaction() {
+        this.$http
+        .put(`transactions/${this.transaction.id}`, this.transaction)
+        .then(({data}) => {
+          this.editTransaction();
+
+          this.$emit('transaction-edited', {transaction: data.transaction});
+        })
+      },
+
+      deleteTransaction() {
+        this.$http
+        .delete(`transactions/${this.transaction.id}`)
+        .then(({data}) => this.$emit('transaction-deleted', {transaction: data.transaction}));
+      }
+    },
+  }
 </script>
-
-<style>
-
-</style>

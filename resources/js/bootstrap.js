@@ -28,4 +28,3 @@ UIkit.use(UIkitIcons);
 // Filters
 Vue.filter('groupDate', groupDate);
 Vue.filter('transactionDate', transactionDate);
-Vue.filter('prettyCurrency', prettyCurrency);

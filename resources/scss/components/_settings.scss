@@ -1212,17 +1212,21 @@ $modal-title-font-size: $global-xlarge-font-size;
 //$modal-close-outside-color: lighten($global-inverse-color, 20%);
 //$modal-close-outside-hover-color: $global-inverse-color;
 
-@mixin hook-modal() {
+//@mixin hook-modal() {}
+@mixin hook-modal-dialog() {
   border-radius: 8px;
 }
-//@mixin hook-modal-dialog() {}
 //@mixin hook-modal-full() {}
 @mixin hook-modal-body() {
   border-top: 2px solid $lightest-gray;
   border-bottom: 2px solid $lightest-gray;
 }
-//@mixin hook-modal-header() {}
-//@mixin hook-modal-footer() {}
+@mixin hook-modal-header() {
+  border-radius: 8px;
+}
+@mixin hook-modal-footer() {
+  border-radius: 8px;
+}
 @mixin hook-modal-title() {
   font-weight: 600;
 }
