@@ -12848,6 +12848,10 @@ section.transaction {
   box-shadow: 0px 3px 6px 0px rgba(122, 123, 125, 0.2);
   background: white;
   cursor: pointer;
+  transition: 0.125s;
+}
+section.transaction:hover {
+  box-shadow: 0px 3px 10px 0px rgba(122, 123, 125, 0.5);
 }
 section.transaction--details {
   padding: 0.75rem 2rem;

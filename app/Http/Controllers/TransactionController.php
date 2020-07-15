@@ -14,7 +14,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::orderByDesc('date')->paginate(5);
+        $transactions = Transaction::orderByDesc('date')->paginate(100);
 
         $pagination = $transactions;
 

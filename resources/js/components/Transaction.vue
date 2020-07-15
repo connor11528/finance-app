@@ -2,11 +2,11 @@
   <section class="transaction uk-border-rounded uk-margin-bottom">
     <section class="transaction--details">
       <div class="uk-flex-middle uk-flex-between" uk-grid>
-        <div class="uk-width-3-4@s uk-width-1-1">
+        <div class="uk-width-expand@s uk-width-1-1">
           <p class="name" v-text="transaction.label"></p>
           <span class="date">{{ transaction.date | transactionDate }}</span>
         </div>
-        <div class="uk-width-expand@s uk-width-1-1 invisible">
+        <div class="uk-width-small@s uk-width-1-1 invisible">
           <ul class="uk-subnav">
             <li>
               <a @click="editTransaction">EDIT</a>
