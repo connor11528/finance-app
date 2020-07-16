@@ -125,12 +125,7 @@
           this.edit = false;
           this.$emit('transaction-edited', {transaction: data.transaction});
 
-          UIkit.notification({
-            message: 'Transaction was updated!',
-            status: 'success',
-            pos: 'top-center',
-            timeout: 5000
-          });
+          this.$notify({message: 'Transaction was updated!'});
         })
       },
 
@@ -144,12 +139,7 @@
           .then(({data}) => {
             this.$emit('transaction-deleted', {transaction: data.transaction});
 
-            UIkit.notification({
-              message: 'Transaction was deleted!',
-              status: 'success',
-              pos: 'top-center',
-              timeout: 5000
-            });
+            this.$notify({message: 'Transaction was deleted!'});
           });
         }, () => {
           //

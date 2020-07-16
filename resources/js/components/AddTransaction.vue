@@ -91,12 +91,7 @@
         .then(({data}) => {
           this.$emit('transaction-added', {data: data.transaction});
 
-          UIkit.notification({
-            message: 'Transaction was added!',
-            status: 'success',
-            pos: 'top-center',
-            timeout: 5000
-          });
+          this.$notify({message: 'Transaction was added!'});
         })
       },
     },

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueAxios from 'vue-axios';
+import VueNotify from './plugins/notify';
 import { groupDate, transactionDate, prettyCurrency } from './filters';
 
 try {
@@ -23,6 +24,11 @@ axios.defaults.baseURL = `${baseURL}/api`;
 // Components
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
+Vue.use(VueNotify, {
+  status: 'success',
+  pos: 'top-center',
+  timeout: 5000
+});
 UIkit.use(UIkitIcons);
 
 // Filters
