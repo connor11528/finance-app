@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->string('label');
             $table->bigInteger('amount');
-            $table->timestamp('date');
+            $table->dateTime('date');
             $table->timestamps();
         });
     }

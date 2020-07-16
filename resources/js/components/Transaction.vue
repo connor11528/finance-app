@@ -28,44 +28,49 @@
       </div>
     </section>
 
-    <section class="uk-section uk-section-small transaction--edit" v-if="edit">
-      <div uk-grid>
-        <div class="uk-width-2-5">
-          <label class="uk-form-label" for="label-add">Label</label>
-          <input
-          class="uk-input uk-form-large"
-          type="text"
-          v-model="transaction.label"
-          id="label-add">
-        </div>
+    <section class="transaction--edit" v-show="edit">
+      <form @submit.prevent="updateTransaction">
+        <section class="uk-section uk-section-small">
+          <div uk-grid>
+            <div class="uk-width-2-5">
+              <label class="uk-form-label" :for="`label-add-${transaction.id}`">Label</label>
+              <input
+              class="uk-input uk-form-large"
+              type="text"
+              v-model="transaction.label"
+              :id="`label-add-${transaction.id}`"
+              required>
+            </div>
 
-        <div class="uk-width-2-5">
-          <label class="uk-form-label" for="date-add">Date</label>
-          <flat-pickr
-          :config="flatPickrConfig"
-          class="uk-input uk-form-large"
-          v-model="transaction.date"
-          id="date-add"
-          required></flat-pickr>
-        </div>
+            <div class="uk-width-2-5">
+              <label class="uk-form-label" :for="`date-add-${transaction.id}`">Date</label>
+              <flat-pickr
+              :config="flatPickrConfig"
+              class="uk-input uk-form-large"
+              v-model="transaction.date"
+              :id="`date-add-${transaction.id}`"
+              required></flat-pickr>
+            </div>
 
-        <div class="uk-width-1-5">
-          <label class="uk-form-label" for="amount-add">Amount</label>
-          <money
-          class="uk-input uk-form-large"
-          v-model.lazy="transaction.amount"
-          v-bind="money"
-          id="amount-add"
-          required></money>
-        </div>
-      </div>
-    </section>
+            <div class="uk-width-1-5">
+              <label class="uk-form-label" :for="`amount-add-${transaction.id}`">Amount</label>
+              <money
+              class="uk-input uk-form-large"
+              v-model.lazy="transaction.amount"
+              v-bind="money"
+              :id="`amount-add-${transaction.id}`"
+              required></money>
+            </div>
+          </div>
+        </section>
 
-    <section class="uk-section uk-section-small transaction--submit" v-if="edit">
-      <div class="uk-flex uk-flex-right">
-        <button class="uk-button uk-button-large uk-button-light-blue" @click="editTransaction">Cancel</button>
-        <button class="uk-button uk-button-large uk-button-primary" @click="updateTransaction">Update Entry</button>
-      </div>
+        <footer class="uk-section uk-section-small">
+          <div class="uk-flex uk-flex-right">
+            <button class="uk-button uk-button-large uk-button-light-blue" @click="editTransaction">Cancel</button>
+            <button class="uk-button uk-button-large uk-button-primary" type="submit">Update Entry</button>
+          </div>
+        </footer>
+      </form>
     </section>
   </section>
 </template>
@@ -117,17 +122,39 @@
         this.$http
         .put(`transactions/${this.transaction.id}`, this.transaction)
         .then(({data}) => {
-          this.editTransaction();
-
+          this.edit = false;
           this.$emit('transaction-edited', {transaction: data.transaction});
+
+          UIkit.notification({
+            message: 'Transaction was updated!',
+            status: 'success',
+            pos: 'top-center',
+            timeout: 5000
+          });
         })
       },
 
       deleteTransaction() {
-        this.$http
-        .delete(`transactions/${this.transaction.id}`)
-        .then(({data}) => this.$emit('transaction-deleted', {transaction: data.transaction}));
+        UIkit.modal.confirm('Are you sure you want to delete this transaction?', {
+          'cls-panel': 'something'
+        })
+        .then(() => {
+          this.$http
+          .delete(`transactions/${this.transaction.id}`)
+          .then(({data}) => {
+            this.$emit('transaction-deleted', {transaction: data.transaction});
+
+            UIkit.notification({
+              message: 'Transaction was deleted!',
+              status: 'success',
+              pos: 'top-center',
+              timeout: 5000
+            });
+          });
+        }, () => {
+          //
+        });
       }
-    },
+    }
   }
 </script>

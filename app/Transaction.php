@@ -35,7 +35,7 @@ class Transaction extends Model
     }
 
     /**
-     * Set the formatted transaction date.
+     * Set the formatted transaction amount.
      *
      * @return void
      */
@@ -46,7 +46,7 @@ class Transaction extends Model
     }
 
     /**
-     * Get the formatted transaction date.
+     * Get the formatted transaction amount.
      *
      * @return void
      */

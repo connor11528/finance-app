@@ -1,5 +1,5 @@
 <template>
-  <div id="modal-add-transaction" uk-modal="container: .balance-menu">
+  <div id="modal-add-transaction" class="uk-modal-container" uk-modal="container: .balance-menu">
     <div class="uk-modal-dialog">
       <form @submit.prevent="submitTransaction">
         <div class="uk-modal-header">
@@ -14,7 +14,8 @@
               class="uk-input uk-form-large"
               type="text"
               v-model="transaction.label"
-              id="label-add">
+              id="label-add"
+              required>
             </div>
 
             <div class="uk-width-2-5">
@@ -61,7 +62,7 @@
         transaction: {
           label: null,
           date: null,
-          amount: 0,
+          amount: 0
         },
         flatPickrConfig: {
           enableTime: true,
@@ -89,6 +90,13 @@
         this.$http.post('transactions', this.transaction)
         .then(({data}) => {
           this.$emit('transaction-added', {data: data.transaction});
+
+          UIkit.notification({
+            message: 'Transaction was added!',
+            status: 'success',
+            pos: 'top-center',
+            timeout: 5000
+          });
         })
       },
     },
@@ -100,11 +108,6 @@
           date: null,
           amount: 0,
         }
-      });
-
-      UIkit.util.on(this.$el, 'beforeshow', () => {
-        const flatpickr = this.$refs.datepicker.fp;
-        flatpickr.setDate(new Date());
       });
     }
   }

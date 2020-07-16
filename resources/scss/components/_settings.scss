@@ -344,9 +344,7 @@ $button-padding-horizontal: 15px;
   text-transform: uppercase;
   border-radius: 8px;
   font-weight: 600;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
   transition: .25s;
 
   img {
@@ -1192,9 +1190,9 @@ $logo-hover-color: $black;
 //$modal-padding-horizontal-m: $global-medium-gutter;
 //$modal-padding-vertical: $modal-padding-horizontal;
 //$modal-padding-vertical-s: 50px;
-$modal-dialog-width: 960px;
+$modal-dialog-width: 600px;
 //$modal-dialog-background: $global-background;
-//$modal-container-width: 1200px;
+$modal-container-width: 960px;
 $modal-body-padding-horizontal: 3rem;
 $modal-body-padding-vertical: 4rem;
 $modal-header-padding-horizontal: 3rem;
@@ -1220,6 +1218,7 @@ $modal-title-font-size: $global-xlarge-font-size;
 @mixin hook-modal-body() {
   border-top: 2px solid $lightest-gray;
   border-bottom: 2px solid $lightest-gray;
+  border-radius: 8px;
 }
 @mixin hook-modal-header() {
   border-radius: 8px;

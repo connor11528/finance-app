@@ -64,19 +64,21 @@ section.transaction {
   }
 
   &--edit {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    border-top: 1px solid $lightest-gray;
-    border-bottom: 1px solid $lightest-gray;
-  }
+    section.uk-section {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      border-top: 1px solid $lightest-gray;
+      border-bottom: 1px solid $lightest-gray;
+    }
 
-  &--submit {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    footer.uk-section {
+      padding-left: 2rem;
+      padding-right: 2rem;
 
-    .uk-flex {
-      button {
-        margin-left: 1.5rem;
+      .uk-flex {
+        button {
+          margin-left: 1.5rem;
+        }
       }
     }
   }
