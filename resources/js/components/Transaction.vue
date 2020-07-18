@@ -66,7 +66,7 @@
 
         <footer class="uk-section uk-section-small">
           <div class="uk-flex uk-flex-right">
-            <button class="uk-button uk-button-large uk-button-light-blue" @click="editTransaction">Cancel</button>
+            <button class="uk-button uk-button-large uk-button-light-blue" type="button" @click="editTransaction">Cancel</button>
             <button class="uk-button uk-button-large uk-button-primary" type="submit">Update Entry</button>
           </div>
         </footer>
