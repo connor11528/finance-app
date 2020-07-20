@@ -1888,7 +1888,7 @@ button.uk-icon:not(:disabled) {
  */
 .uk-form-success,
 .uk-form-success:focus {
-  color: #32d296;
+  color: #00b357;
 }
 
 /*
@@ -3356,8 +3356,8 @@ select.uk-form-width-xsmall {
  * Success
  */
 .uk-alert-success {
-  background: #edfbf6;
-  color: #32d296;
+  background: #c8eedb;
+  color: #00b357;
 }
 
 /*
@@ -3451,7 +3451,7 @@ select.uk-form-width-xsmall {
  * Success
  */
 .uk-label-success {
-  background-color: #32d296;
+  background-color: #00b357;
   color: #ffffff;
 }
 
@@ -4986,10 +4986,12 @@ select.uk-form-width-xsmall {
   position: relative;
   padding: 15px;
   background: #f5f6fa;
-  color: #9a9a9a;
+  color: #ffffff;
   font-size: 20px;
   line-height: 1.4;
   cursor: pointer;
+  border-radius: 8px;
+  color: #ffffff;
 }
 
 * + .uk-notification-message {
@@ -5023,7 +5025,8 @@ select.uk-form-width-xsmall {
  * Success
  */
 .uk-notification-message-success {
-  color: #32d296;
+  color: #00b357;
+  background: #cdffe5;
 }
 
 /*
@@ -8228,7 +8231,7 @@ ul.uk-nav-sub {
 }
 
 .uk-text-success {
-  color: #32d296 !important;
+  color: #00b357 !important;
 }
 
 .uk-text-warning {

@@ -50,10 +50,10 @@
 
     methods: {
       submitTransaction() {
-        this.errorBag = null;
-
         this.$http.post('transactions', this.transaction)
         .then(({data}) => {
+          this.errorBag = null;
+
           this.$emit('transaction-added', {data: data.transaction});
 
           this.$notify({message: 'Transaction was added!'});

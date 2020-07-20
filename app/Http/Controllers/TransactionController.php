@@ -40,7 +40,7 @@ class TransactionController extends Controller
      */
     public function store(TransactionRequest $request)
     {
-        $transaction = Transaction::create($request->all());
+        $transaction = Transaction::create($request->validated());
 
         return $this->show($transaction);
     }
@@ -65,7 +65,7 @@ class TransactionController extends Controller
      */
     public function update(TransactionRequest $request, Transaction $transaction)
     {
-        $transaction->update($request->all());
+        $transaction->update($request->validated());
 
         return $this->show($transaction->fresh());
     }
