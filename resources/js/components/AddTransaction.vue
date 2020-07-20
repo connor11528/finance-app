@@ -55,6 +55,7 @@
 <script>
   import FlatPickr from 'vue-flatpickr-component';
   import { Money } from 'v-money';
+  import ConfigMixin from '../mixins/ConfigMixin';
 
   export default {
     data() {
@@ -63,22 +64,11 @@
           label: null,
           date: null,
           amount: 0
-        },
-        flatPickrConfig: {
-          enableTime: true,
-          altInput: true,
-          altFormat: 'j M, Y \\a\\t G:i K'
-        },
-        money: {
-          decimal: '.',
-          thousands: ',',
-          prefix: '$',
-          suffix: '',
-          precision: 2,
-          masked: false
         }
       }
     },
+
+    mixins: [ConfigMixin],
 
     components: {
       FlatPickr,

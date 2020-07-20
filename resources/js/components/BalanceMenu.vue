@@ -36,7 +36,7 @@
 
 <script>
   import AddTransaction from './AddTransaction';
-  import CurrencyMixin from '../mixins/currency';
+  import CurrencyMixin from '../mixins/CurrencyMixin';
 
   export default {
     props: ['totalBalance'],

@@ -58,7 +58,7 @@
 
 <script>
   import Transaction from './Transaction';
-  import CurrencyMixin from '../mixins/currency';
+  import CurrencyMixin from '../mixins/CurrencyMixin';
 
   export default {
     data() {

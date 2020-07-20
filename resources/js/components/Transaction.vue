@@ -78,29 +78,20 @@
 <script>
   import FlatPickr from 'vue-flatpickr-component';
   import { Money } from 'v-money';
-  import CurrencyMixin from '../mixins/currency';
+  import CurrencyMixin from '../mixins/CurrencyMixin';
+  import ConfigMixin from '../mixins/ConfigMixin';
 
   export default {
     data() {
       return {
-        edit: false,
-        flatPickrConfig: {
-          enableTime: true,
-          altInput: true,
-          altFormat: 'j M, Y \\a\\t G:i K'
-        },
-        money: {
-          decimal: '.',
-          thousands: ',',
-          prefix: '$',
-          suffix: '',
-          precision: 2,
-          masked: false
-        }
+        edit: false
       }
     },
 
-    mixins: [CurrencyMixin],
+    mixins: [
+      CurrencyMixin,
+      ConfigMixin
+    ],
 
     props: {
       transaction: {
