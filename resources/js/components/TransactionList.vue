@@ -1,7 +1,7 @@
 <template>
   <section class="transaction-list uk-section">
     <div class="uk-container">
-      <div class="uk-child-width-1-1" uk-grid v-if="groups.data">
+      <div class="uk-child-width-1-1" uk-grid v-if="hasTransactions">
         <section class="transaction-group" v-for="(group, date) in groups.data" :key="date">
           <header class="uk-flex uk-flex-between uk-flex-middle uk-margin-bottom">
             <span class="date">
@@ -66,6 +66,10 @@
     mixins: [CurrencyMixin],
 
     computed: {
+      hasTransactions() {
+        return this.groups.total;
+      },
+
       onFirstPage() {
         return this.groups.current_page === 1;
       },

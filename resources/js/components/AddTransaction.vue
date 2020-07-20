@@ -38,7 +38,7 @@
         transaction: {
           label: null,
           date: null,
-          amount: 0,
+          amount: 0
         }
       }
     },
@@ -61,7 +61,7 @@
         .catch(error => {
           this.errorBag = error.response.data
         });
-      },
+      }
     },
 
     mounted() {
