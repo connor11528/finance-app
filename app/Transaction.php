@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use DateTimeInterface;
 
 class Transaction extends Model
 {
@@ -29,7 +28,7 @@ class Transaction extends Model
      * @param  \DateTimeInterface  $date
      * @return string
      */
-    protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(\DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
     }
@@ -41,8 +40,7 @@ class Transaction extends Model
      */
     public function setAmountAttribute($value)
     {
-        $formatted_value = round($value * 100);
-        $this->attributes['amount'] = $formatted_value;
+        $this->attributes['amount'] = (int) round($value * 100);
     }
 
     /**
@@ -52,6 +50,6 @@ class Transaction extends Model
      */
     public function getAmountAttribute($value)
     {
-        return number_format(($value / 100), 2, '.', '');
+        return (float) number_format(($value / 100), 2, '.', '');
     }
 }

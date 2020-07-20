@@ -18,10 +18,6 @@ export default {
         value: `$${dollars}.${cents}`,
         sign: isPositive ? 'positive' : 'negative'
       };
-    },
-
-    plainFormat: function (amount) {
-      return parseFloat(amount).toFixed(2);
     }
   }
 }
