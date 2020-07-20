@@ -41,8 +41,8 @@ class Transaction extends Model
      */
     public function setAmountAttribute($value)
     {
-        $formatted_value = number_format($value, 2, '.', '');
-        $this->attributes['amount'] = str_replace('.', '', $formatted_value);
+        $formatted_value = round($value * 100);
+        $this->attributes['amount'] = $formatted_value;
     }
 
     /**
