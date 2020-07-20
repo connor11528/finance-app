@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Transaction;
 use App\Http\Requests\TransactionRequest;
-use Illuminate\Pagination\Paginator;
 
 class TransactionController extends Controller
 {
