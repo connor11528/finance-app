@@ -7,38 +7,13 @@
         </div>
 
         <div class="uk-modal-body">
-          <div uk-grid>
-            <div class="uk-width-2-5">
-              <label class="uk-form-label" for="label-add">Label</label>
-              <input
-              class="uk-input uk-form-large"
-              type="text"
-              v-model="transaction.label"
-              id="label-add"
-              required>
-            </div>
+          <transaction-form
+          :action="'add'"
+          :transaction="transaction"
+          :error-bag="errorBag"
+          />
 
-            <div class="uk-width-2-5">
-              <label class="uk-form-label" for="date-add">Date</label>
-              <flat-pickr
-              :config="flatPickrConfig"
-              class="uk-input uk-form-large"
-              v-model="transaction.date"
-              id="date-add"
-              ref="datepicker"
-              required></flat-pickr>
-            </div>
-
-            <div class="uk-width-1-5">
-              <label class="uk-form-label" for="amount-add">Amount</label>
-              <money
-              class="uk-input uk-form-large"
-              v-model.lazy="transaction.amount"
-              v-bind="money"
-              id="amount-add"
-              required></money>
-            </div>
-          </div>
+          <form-errors :error-bag="errorBag"></form-errors>
         </div>
 
         <div class="uk-modal-footer">
@@ -53,41 +28,45 @@
 </template>
 
 <script>
-  import FlatPickr from 'vue-flatpickr-component';
-  import { Money } from 'v-money';
-  import ConfigMixin from '../mixins/ConfigMixin';
+  import FormErrors from './FormErrors'
+  import TransactionForm from './TransactionForm';
 
   export default {
     data() {
       return {
+        errorBag: null,
         transaction: {
           label: null,
           date: null,
-          amount: 0
+          amount: 0,
         }
       }
     },
 
-    mixins: [ConfigMixin],
-
     components: {
-      FlatPickr,
-      Money
+      FormErrors,
+      TransactionForm
     },
 
     methods: {
       submitTransaction() {
+        this.errorBag = null;
+
         this.$http.post('transactions', this.transaction)
         .then(({data}) => {
           this.$emit('transaction-added', {data: data.transaction});
 
           this.$notify({message: 'Transaction was added!'});
         })
+        .catch(error => {
+          this.errorBag = error.response.data
+        });
       },
     },
 
     mounted() {
       UIkit.util.on(this.$el, 'hidden', () => {
+        this.errorBag = null;
         this.transaction = {
           label: null,
           date: null,

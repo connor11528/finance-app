@@ -1,11 +1,11 @@
 <template>
   <section class="transaction-list uk-section">
     <div class="uk-container">
-      <div class="uk-child-width-1-1" uk-grid v-if="groups.length">
-        <section class="transaction-group" v-for="(group, date) in groups" :key="date">
+      <div class="uk-child-width-1-1" uk-grid v-if="groups.data">
+        <section class="transaction-group" v-for="(group, date) in groups.data" :key="date">
           <header class="uk-flex uk-flex-between uk-flex-middle uk-margin-bottom">
             <span class="date">
-              {{ group.date | groupDate }}
+              {{ date | groupDate }}
             </span>
 
             <span
@@ -24,19 +24,19 @@
           </section>
         </section>
 
-        <section class="uk-flex uk-flex-center" v-if="pagination.last_page > 1">
+        <section class="uk-flex uk-flex-center" v-if="groups.last_page > 1">
           <button
           class="uk-button uk-button-small uk-button-default"
-          @click="paginate(pagination.current_page - 1)"
+          @click="paginate(groups.current_page - 1)"
           :disabled="onFirstPage">
             <span uk-icon="chevron-left"></span>Prev
           </button>
 
-          <button class="uk-button uk-button-small uk-button-default" disabled>Page {{ pagination.current_page }}</button>
+          <button class="uk-button uk-button-small uk-button-default" disabled>Page {{ groups.current_page }}</button>
 
           <button
           class="uk-button uk-button-small uk-button-default"
-          @click="paginate(pagination.current_page + 1)"
+          @click="paginate(groups.current_page + 1)"
           :disabled="!hasMorePages">
             Next<span uk-icon="chevron-right"></span>
           </button>
@@ -61,23 +61,17 @@
   import CurrencyMixin from '../mixins/CurrencyMixin';
 
   export default {
-    data() {
-      return {
-        groupValue: []
-      }
-    },
-
-    props: ['pagination', 'groups'],
+    props: ['groups'],
 
     mixins: [CurrencyMixin],
 
     computed: {
       onFirstPage() {
-        return this.pagination.current_page === 1;
+        return this.groups.current_page === 1;
       },
 
       hasMorePages() {
-        return this.pagination.current_page < this.pagination.last_page;
+        return this.groups.current_page < this.groups.last_page;
       }
     },
 

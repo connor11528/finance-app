@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Transaction;
-use Illuminate\Http\Request;
+use App\Http\Requests\TransactionRequest;
+use Illuminate\Pagination\Paginator;
 
 class TransactionController extends Controller
 {
@@ -14,34 +15,22 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::orderByDesc('date')->paginate(100);
+        $groups_data = Transaction::orderByDesc('date')->paginate(100);
 
-        $pagination = $transactions;
+        $grouped_by_date = $groups_data
+            ->groupBy(function ($item) {
+                return $item->date->format('Y-m-d');
+            })
+            ->map(function ($transactions) {
+                return [
+                    'transactions' => $transactions,
+                    'balance' => $transactions->sum('amount')
+                ];
+            });
 
-        $transaction_data = $transactions->groupBy(function ($item) {
-            return $item->date->format('Y-m-d');
-        });
+        $groups = $groups_data->setCollection($grouped_by_date);
 
-        $groups = [];
-
-        foreach ($transaction_data as $group => $transactions) {
-            $balance = 0;
-
-            foreach ($transactions as $transaction) {
-                $balance += $transaction->amount;
-            }
-
-            $groups[] = [
-                'date' => $group,
-                'transactions' => $transactions,
-                'balance' => $balance
-            ];
-        }
-
-        return response()->json([
-            'pagination' => $pagination,
-            'groups' => $groups
-        ], 200);
+        return response()->json($groups);
     }
 
     /**
@@ -50,7 +39,7 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TransactionRequest $request)
     {
         $transaction = Transaction::create($request->all());
 
@@ -65,9 +54,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return response()->json([
-            'transaction' => $transaction
-        ], 200);
+        return response()->json($transaction);
     }
 
     /**
@@ -77,7 +64,7 @@ class TransactionController extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(TransactionRequest $request, Transaction $transaction)
     {
         $transaction->update($request->all());
 

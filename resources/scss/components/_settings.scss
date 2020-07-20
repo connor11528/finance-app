@@ -39,7 +39,9 @@
 //$alert-danger-background: lighten(mix(white, $global-danger-background, 40%), 20%);
 //$alert-danger-color: $global-danger-background;
 
-//@mixin hook-alert() {}
+@mixin hook-alert() {
+  border-radius: 8px;
+}
 //@mixin hook-alert-close() {}
 //@mixin hook-alert-close-hover() {}
 //@mixin hook-alert-primary() {}
@@ -789,7 +791,13 @@ $form-large-height: 65px;
   border-color: $primary-blue;
 }
 //@mixin hook-form-disabled() {}
-//@mixin hook-form-danger() {}
+@mixin hook-form-danger() {
+  border-color: $global-danger-background;
+
+  & + .uk-input {
+    border-color: $global-danger-background;
+  }
+}
 //@mixin hook-form-success() {}
 //@mixin hook-form-blank() {}
 //@mixin hook-form-blank-focus() {}

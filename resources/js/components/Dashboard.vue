@@ -9,7 +9,6 @@
     @transaction-deleted="getDashboardData"
     @transaction-edited="getDashboardData"
     @paginate-list="paginateList"
-    :pagination="pagination"
     :groups="groups" />
   </div>
 </template>
@@ -23,7 +22,6 @@
     data() {
       return  {
         totalBalance: 0,
-        pagination: [],
         groups: []
       }
     },
@@ -47,8 +45,7 @@
             page
           }
         }).then(({data}) => {
-          this.pagination = data.pagination;
-          this.groups = data.groups;
+          this.groups = data
         });
       },
 

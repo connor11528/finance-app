@@ -31,37 +31,13 @@
     <section class="transaction--edit" v-show="edit">
       <form @submit.prevent="updateTransaction">
         <section class="uk-section uk-section-small">
-          <div uk-grid>
-            <div class="uk-width-2-5">
-              <label class="uk-form-label" :for="`label-add-${transaction.id}`">Label</label>
-              <input
-              class="uk-input uk-form-large"
-              type="text"
-              v-model="transaction.label"
-              :id="`label-add-${transaction.id}`"
-              required>
-            </div>
+          <transaction-form
+          :action="'update'"
+          :transaction="transaction"
+          :error-bag="errorBag"
+          />
 
-            <div class="uk-width-2-5">
-              <label class="uk-form-label" :for="`date-add-${transaction.id}`">Date</label>
-              <flat-pickr
-              :config="flatPickrConfig"
-              class="uk-input uk-form-large"
-              v-model="transaction.date"
-              :id="`date-add-${transaction.id}`"
-              required></flat-pickr>
-            </div>
-
-            <div class="uk-width-1-5">
-              <label class="uk-form-label" :for="`amount-add-${transaction.id}`">Amount</label>
-              <money
-              class="uk-input uk-form-large"
-              v-model.lazy="transaction.amount"
-              v-bind="money"
-              :id="`amount-add-${transaction.id}`"
-              required></money>
-            </div>
-          </div>
+          <form-errors :error-bag="errorBag" />
         </section>
 
         <footer class="uk-section uk-section-small">
@@ -76,21 +52,20 @@
 </template>
 
 <script>
-  import FlatPickr from 'vue-flatpickr-component';
-  import { Money } from 'v-money';
+  import FormErrors from './FormErrors';
+  import TransactionForm from './TransactionForm';
   import CurrencyMixin from '../mixins/CurrencyMixin';
-  import ConfigMixin from '../mixins/ConfigMixin';
 
   export default {
     data() {
       return {
-        edit: false
+        edit: false,
+        errorBag: null
       }
     },
 
     mixins: [
-      CurrencyMixin,
-      ConfigMixin
+      CurrencyMixin
     ],
 
     props: {
@@ -100,8 +75,8 @@
     },
 
     components: {
-      FlatPickr,
-      Money
+      FormErrors,
+      TransactionForm
     },
 
     methods: {
@@ -118,6 +93,9 @@
 
           this.$notify({message: 'Transaction was updated!'});
         })
+        .catch(error => {
+          this.errorBag = error.response.data
+        });
       },
 
       deleteTransaction() {

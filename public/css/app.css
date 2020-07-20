@@ -1876,6 +1876,11 @@ button.uk-icon:not(:disabled) {
 .uk-form-danger,
 .uk-form-danger:focus {
   color: #f0506e;
+  border-color: #f0506e;
+}
+.uk-form-danger + .uk-input,
+.uk-form-danger:focus + .uk-input {
+  border-color: #f0506e;
 }
 
 /*
@@ -3303,6 +3308,7 @@ select.uk-form-width-xsmall {
   padding: 15px 29px 15px 15px;
   background: #f5f6fa;
   color: #9a9a9a;
+  border-radius: 8px;
 }
 
 /* Add margin if adjacent element */
