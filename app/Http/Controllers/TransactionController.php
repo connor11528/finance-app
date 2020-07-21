@@ -29,7 +29,7 @@ class TransactionController extends Controller
 
         $groups = $groups_data->setCollection($grouped_by_date);
 
-        return response()->json($groups);
+        return response($groups);
     }
 
     /**
@@ -53,7 +53,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return response()->json($transaction);
+        return response($transaction);
     }
 
     /**
