@@ -10,8 +10,7 @@
           <transaction-form
           :action="'add'"
           :transaction="transaction"
-          :error-bag="errorBag"
-          />
+          :error-bag="errorBag" />
 
           <form-errors :error-bag="errorBag"></form-errors>
         </div>

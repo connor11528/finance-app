@@ -34,8 +34,7 @@
           <transaction-form
           :action="'update'"
           :transaction="transaction"
-          :error-bag="errorBag"
-          />
+          :error-bag="errorBag" />
 
           <form-errors :error-bag="errorBag" />
         </section>
@@ -88,10 +87,11 @@
         this.$http
         .put(`transactions/${this.transaction.id}`, this.transaction)
         .then(({data}) => {
-          this.edit = false;
           this.$emit('transaction-edited', {transaction: data.transaction});
 
           this.$notify({message: 'Transaction was updated!'});
+
+          this.edit = false;
         })
         .catch(error => {
           this.errorBag = error.response.data
@@ -99,9 +99,7 @@
       },
 
       deleteTransaction() {
-        UIkit.modal.confirm('Are you sure you want to delete this transaction?', {
-          'cls-panel': 'something'
-        })
+        UIkit.modal.confirm('Are you sure you want to delete this transaction?')
         .then(() => {
           this.$http
           .delete(`transactions/${this.transaction.id}`)

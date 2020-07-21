@@ -39,7 +39,7 @@
         });
       },
 
-      getTransactions(page = 1) {
+      getTransactions(page = this.groups.current_page || 1) {
         this.$http.get('transactions', {
           params: {
             page
