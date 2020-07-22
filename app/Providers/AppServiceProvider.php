@@ -36,10 +36,6 @@ class AppServiceProvider extends ServiceProvider
 
                     File::delete($file);
                     break;
-
-                default:
-                    # code...
-                    break;
             }
         });
     }

@@ -21,9 +21,16 @@ class ImportController extends Controller
             ->move(storage_path() . '/app/imports')
             ->getRealPath();
 
-        $rows = Excel::toArray(new TransactionImport, $file, null, \Maatwebsite\Excel\Excel::CSV);
+        $rows = Excel::toArray(
+            new TransactionImport,
+            $file,
+            null,
+            \Maatwebsite\Excel\Excel::CSV
+        );
 
-        dispatch(new ImportTransactionsJob($file));
+        dispatch(
+            new ImportTransactionsJob($file)
+        );
 
         return response([
             'rows' => number_format(count($rows[0]), 0, false, ',')
