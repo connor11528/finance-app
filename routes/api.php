@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard', 'DashboardController');
 Route::resource('transactions', 'TransactionController');
+Route::post('import', 'ImportController');
+Route::get('import-status', 'ImportStatusController');

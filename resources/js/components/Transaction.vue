@@ -32,6 +32,7 @@
       <form @submit.prevent="updateTransaction">
         <section class="uk-section uk-section-small">
           <transaction-form
+          v-if="edit"
           :action="'update'"
           :transaction="transaction"
           :error-bag="errorBag" />
@@ -93,8 +94,8 @@
 
           this.edit = false;
         })
-        .catch(error => {
-          this.errorBag = error.response.data
+        .catch(({response}) => {
+          this.errorBag = response
         });
       },
 

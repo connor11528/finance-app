@@ -1,7 +1,7 @@
 <template>
   <section class="transaction-list uk-section">
     <div class="uk-container">
-      <div class="uk-child-width-1-1" uk-grid v-if="hasTransactions">
+      <div class="uk-child-width-1-1 uk-animation-fade" uk-grid v-if="hasTransactions">
         <section class="transaction-group" v-for="(group, date) in groups.data" :key="date">
           <header class="uk-flex uk-flex-between uk-flex-middle uk-margin-bottom">
             <span class="date">
@@ -43,11 +43,21 @@
         </section>
       </div>
 
-      <div class="uk-child-width-1-1" uk-grid v-else>
+      <div class="uk-child-width-1-1" uk-grid v-if="!hasTransactions && !loading">
         <div>
           <div class="uk-flex-center uk-child-width-1-2" uk-grid>
             <div class="uk-alert-primary uk-border-radius uk-text-center" uk-alert>
               <p>No Entries Found</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-child-width-1-1" uk-grid v-if="loading">
+        <div>
+          <div class="uk-flex-center uk-child-width-1-2" uk-grid>
+            <div class="uk-alert-primary uk-border-radius uk-text-center" uk-alert>
+              <div class="uk-flex uk-flex-middle uk-flex-center"><div class="uk-margin-left spinner blue"></div></div>
             </div>
           </div>
         </div>
@@ -76,6 +86,10 @@
 
       hasMorePages() {
         return this.groups.current_page < this.groups.last_page;
+      },
+
+      loading() {
+        return !this.groups.hasOwnProperty('data');
       }
     },
 

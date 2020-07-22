@@ -6,12 +6,18 @@
           <div class="uk-flex uk-flex-middle">
             <p>Your Balance</p>
 
-            <button class="uk-button uk-button-primary add-button" @click="addTransaction">
+            <button
+            class="uk-button uk-button-primary add-button"
+            :disabled="disabled"
+            uk-toggle="target: #modal-add-transaction">
               <img src="/img/add.svg">
               Add Entry
             </button>
 
-            <button class="uk-button uk-button-primary import-button">
+            <button
+            class="uk-button uk-button-primary import-button"
+            :disabled="disabled"
+            uk-toggle="target: #modal-import-transactions">
               <img src="/img/import.svg">
               Import CSV
             </button>
@@ -29,29 +35,44 @@
     </div>
 
     <add-transaction
-    v-on="$listeners"
-    @transaction-added="closeModal"></add-transaction>
+    v-on="$listeners" />
+
+    <import-transactions
+    @transaction-import="disableActions"
+    v-on="$listeners" />
   </section>
 </template>
 
 <script>
   import AddTransaction from './AddTransaction';
+  import ImportTransactions from './ImportTransactions';
   import CurrencyMixin from '../mixins/CurrencyMixin';
 
   export default {
-    props: ['totalBalance'],
+    data() {
+      return {
+        disabled: false
+      }
+    },
 
-    components: {AddTransaction},
+    watch: {
+      importing(status) {
+        this.disabled = status;
+      }
+    },
+
+    props: ['totalBalance', 'importing'],
+
+    components: {
+      AddTransaction,
+      ImportTransactions
+    },
 
     mixins: [CurrencyMixin],
 
     methods: {
-      addTransaction() {
-        UIkit.modal('#modal-add-transaction').show();
-      },
-
-      closeModal() {
-        UIkit.modal('#modal-add-transaction').hide();
+      disableActions() {
+        this.disabled = true;
       }
     }
   }
