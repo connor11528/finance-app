@@ -24,7 +24,7 @@
           </section>
         </section>
 
-        <section class="uk-flex uk-flex-center" v-if="groups.last_page > 1">
+        <section class="uk-flex uk-flex-center uk-flex-middle pagination" v-if="groups.last_page > 1">
           <button
           class="uk-button uk-button-small uk-button-default"
           @click="paginate(groups.current_page - 1)"
@@ -32,7 +32,7 @@
             <span uk-icon="chevron-left"></span>Prev
           </button>
 
-          <button class="uk-button uk-button-small uk-button-default" disabled>Page {{ groups.current_page }}</button>
+          <span class="page-no">Page {{ groups.current_page }}</span>
 
           <button
           class="uk-button uk-button-small uk-button-default"

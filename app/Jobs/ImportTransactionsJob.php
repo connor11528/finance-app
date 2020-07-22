@@ -2,8 +2,7 @@
 
 namespace App\Jobs;
 
-use Illuminate\Support\Facades\File;
-use App\Imports\TransactionsImport;
+use App\Imports\TransactionImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -35,12 +34,10 @@ class ImportTransactionsJob implements ShouldQueue
     public function handle()
     {
         Excel::import(
-            new TransactionsImport,
+            new TransactionImport,
             $this->data,
             null,
             \Maatwebsite\Excel\Excel::CSV
         );
-
-        File::delete($this->data);
     }
 }

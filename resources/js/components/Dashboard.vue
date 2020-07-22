@@ -57,13 +57,15 @@
       'importing.status': function(status) {
         if (status === true) {
           this.statusCheck = setInterval(() => {
-            console.log('checking...');
             this.getImportStatus();
           }, 3000);
         } else {
           this.$notify({message: 'Transactions were imported!'});
+
           clearInterval(this.statusCheck);
+
           this.groups = [];
+
           this.refreshDashboard();
         }
       }
@@ -73,12 +75,15 @@
       getDashboardData() {
         this.$http.get('dashboard').then(({data}) => {
           this.totalBalance = parseFloat(data.total_balance);
+
           this.importing.status = data.import_status;
         });
       },
 
 
       getTransactions(page = this.groups.current_page || 1) {
+        this.groups = [];
+
         this.$http.get('transactions', {
           params: {
             page

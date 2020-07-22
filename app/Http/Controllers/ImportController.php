@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportRequest;
-use App\Imports\TransactionsImport;
+use App\Imports\TransactionImport;
 use App\Jobs\ImportTransactionsJob;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -18,10 +18,10 @@ class ImportController extends Controller
     public function __invoke(ImportRequest $request)
     {
         $file = $request->file('import')
-            ->move(storage_path() . '/imports')
+            ->move(storage_path() . '/app/imports')
             ->getRealPath();
 
-        $rows = Excel::toArray(new TransactionsImport, $file, null, \Maatwebsite\Excel\Excel::CSV);
+        $rows = Excel::toArray(new TransactionImport, $file, null, \Maatwebsite\Excel\Excel::CSV);
 
         dispatch(new ImportTransactionsJob($file));
 
