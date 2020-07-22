@@ -15,10 +15,8 @@ class ImportStatusController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $job_queued = DB::table('jobs')->first();
-
         return response([
-            'import_status' => $job_queued ? true : false
+            'import_status' => jobIsQueued() ? true : false
         ]);
     }
 }

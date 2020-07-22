@@ -16,11 +16,10 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         $total_balance = DB::table('transactions')->sum('amount');
-        $import_status = DB::table('jobs')->first();
 
         return response()->json([
             'total_balance' => number_format(($total_balance / 100), 2, '.', ''),
-            'import_status' => $import_status ? true : false
+            'import_status' => jobIsQueued() ? true : false
         ], 200);
     }
 }
