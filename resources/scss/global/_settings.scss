@@ -3,6 +3,22 @@
 // Description:     Defines common values which are used across all components
 //
 // ========================================================================
+@import 'fonts';
+
+// Variables
+// ========================================================================
+$primary-blue: #0054fe;
+$dark-blue: #192b4e;
+$light-blue: #dbe5fa;
+$green: #00b357;
+$white: #ffffff;
+$black: #000000;
+$lightest-gray: #e2e4eb;
+$lighter-gray: #f5f6fa;
+$light-gray: #a3aab8;
+$gray: #9a9a9a;
+$dark-gray: #8a8d9a;
+$darker-gray: #7a7b7d;
 
 // Breakpoints
 // ========================================================================
@@ -22,7 +38,8 @@ $breakpoint-large-max: ($breakpoint-xlarge - 1) !default;
 //
 // Typography
 //
-$global-font-family: -apple-system,
+$global-font-family: 'SF Pro Rounded',
+-apple-system,
 BlinkMacSystemFont,
 "Segoe UI",
 Roboto,
@@ -46,22 +63,22 @@ $global-xsmall-font-size: 12px !default;
 //
 // Colors
 //
-$global-color: #666 !default;
-$global-emphasis-color: #333 !default;
-$global-muted-color: #999 !default;
-$global-link-color: #1e87f0 !default;
-$global-link-hover-color: #0f6ecd !default;
-$global-inverse-color: #fff !default;
+$global-color: $gray !default;
+$global-emphasis-color: $black !default;
+$global-muted-color: $light-gray;
+$global-link-color: $primary-blue;
+$global-link-hover-color: darken($primary-blue, 10%);
+$global-inverse-color: $white;
 
 //
 // Backgrounds
 //
 $global-background: #fff !default;
-$global-muted-background: #f8f8f8 !default;
-$global-primary-background: #1e87f0 !default;
-$global-secondary-background: #222 !default;
-$global-success-background: #32d296 !default;
-$global-warning-background: #faa05a !default;
+$global-muted-background: $lighter-gray !default;
+$global-primary-background: $primary-blue;
+$global-secondary-background: $dark-blue;
+$global-success-background: $green !default;
+$global-warning-background: #eb9762 !default;
 $global-danger-background: #f0506e !default;
 
 //

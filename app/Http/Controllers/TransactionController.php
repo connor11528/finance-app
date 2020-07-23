@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Transaction;
-use Illuminate\Http\Request;
+use App\Http\Requests\TransactionRequest;
 
 class TransactionController extends Controller
 {
@@ -14,7 +14,22 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $groups_data = Transaction::orderByDesc('date')->paginate(100);
+
+        $grouped_by_date = $groups_data
+            ->groupBy(function ($item) {
+                return $item->date->format('Y-m-d');
+            })
+            ->map(function ($transactions) {
+                return [
+                    'transactions' => $transactions,
+                    'balance' => $transactions->sum('amount')
+                ];
+            });
+
+        $groups = $groups_data->setCollection($grouped_by_date);
+
+        return response($groups);
     }
 
     /**
@@ -23,9 +38,11 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TransactionRequest $request)
     {
-        //
+        $transaction = Transaction::create($request->validated());
+
+        return $this->show($transaction);
     }
 
     /**
@@ -36,7 +53,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        return response($transaction);
     }
 
     /**
@@ -46,9 +63,11 @@ class TransactionController extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(TransactionRequest $request, Transaction $transaction)
     {
-        //
+        $transaction->update($request->validated());
+
+        return $this->show($transaction->fresh());
     }
 
     /**
@@ -59,6 +78,8 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+
+        return $this->show($transaction);
     }
 }

@@ -1,0 +1,85 @@
+section.transaction {
+  box-shadow: 0px 3px 6px 0px rgba(122, 123, 125, .2);
+  background: white;
+  cursor: pointer;
+  transition: .25s;
+
+  &:hover {
+    box-shadow: 0px 3px 10px 0px rgba(122, 123, 125, .5);
+  }
+
+  &--details {
+    padding: .75rem 2rem;
+
+    p.name {
+      color: $black;
+      margin-bottom: 0;
+      font: {
+        size: 24px;
+        weight: 500;
+      }
+    }
+
+    span.date {
+      font: {
+        size: 18px;
+        weight: 400;
+      }
+    }
+
+    .invisible {
+      transition: .25s;
+      opacity: 0;
+    }
+
+    &:hover {
+      .invisible {
+        opacity: 1;
+      }
+    }
+
+    span.amount {
+      color: $black;
+      font: {
+        size: 22px;
+        weight: 500
+      }
+
+      &::before {
+        content: '- ';
+      }
+
+      &.positive {
+        color: $green;
+
+        &::before {
+          content: '+ ';
+        }
+      }
+
+      span {
+        font-size: 80%;
+      }
+    }
+  }
+
+  &--edit {
+    section.uk-section {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      border-top: 1px solid $lightest-gray;
+      border-bottom: 1px solid $lightest-gray;
+    }
+
+    footer.uk-section {
+      padding-left: 2rem;
+      padding-right: 2rem;
+
+      .uk-flex {
+        button {
+          margin-left: 1.5rem;
+        }
+      }
+    }
+  }
+}

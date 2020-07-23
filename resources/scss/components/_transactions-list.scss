@@ -1,0 +1,56 @@
+section.transaction-list {
+  header {
+    span {
+      &.date {
+        color: $dark-gray;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font: {
+          size: 18px;
+          weight: 600l
+        }
+      }
+
+      &.balance {
+        margin-right: 2rem;
+        color: $darker-gray;
+        font: {
+          size: 24px;
+          weight: 500;
+        }
+
+        &::before {
+          content: '- ';
+        }
+
+        span {
+          font-size: 80%;
+        }
+
+        &.positive {
+          color: $green;
+
+          &::before {
+            content: '+ ';
+          }
+        }
+      }
+    }
+  }
+
+  section.pagination {
+    .page-no {
+      font-size: 12px;
+      margin: 0 .5rem;
+      display: inline-block;
+      text-transform: uppercase;
+      color: $darker-gray;
+    }
+
+    .uk-button {
+      &[disabled] {
+        color: $darker-gray;
+      }
+    }
+  }
+}

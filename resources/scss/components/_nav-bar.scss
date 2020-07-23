@@ -1,0 +1,42 @@
+nav.uk-navbar-container {
+  .uk-logo {
+    img {
+      margin-right: 1rem;
+    }
+
+    span {
+      color: $primary-blue;
+    }
+  }
+
+  .uk-navbar-right {
+    a {
+      &.notifications {
+        margin-right: 1.25rem;
+
+        img {
+          height: 20px;
+        }
+      }
+
+      &.user {
+        &:hover {
+          text-decoration: none;
+        }
+
+        img {
+          height: 40px;
+          margin-right: 1.25rem;
+        }
+
+        span {
+          color: $darker-gray;
+          font: {
+            size: 18px;
+            weight: 700;
+          }
+        }
+      }
+    }
+  }
+}
