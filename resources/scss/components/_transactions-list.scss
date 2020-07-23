@@ -37,4 +37,20 @@ section.transaction-list {
       }
     }
   }
+
+  section.pagination {
+    .page-no {
+      font-size: 12px;
+      margin: 0 .5rem;
+      display: inline-block;
+      text-transform: uppercase;
+      color: $darker-gray;
+    }
+
+    .uk-button {
+      &[disabled] {
+        color: $darker-gray;
+      }
+    }
+  }
 }

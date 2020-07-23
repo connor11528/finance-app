@@ -16,9 +16,9 @@
         </div>
 
         <div class="uk-modal-footer">
-          <div class="uk-button-group">
+          <div class="uk-button-group uk-flex uk-flex-right">
             <button class="uk-button uk-button-large uk-button-light-blue uk-modal-close" type="button">Cancel</button>
-            <button class="uk-button uk-button-large uk-button-primary" type="submit">Save Entry</button>
+            <button class="uk-button uk-button-large uk-button-primary uk-margin-left" type="submit">Save Entry</button>
           </div>
         </div>
       </form>
@@ -57,8 +57,8 @@
 
           this.$notify({message: 'Transaction was added!'});
         })
-        .catch(error => {
-          this.errorBag = error.response.data
+        .catch(({response}) => {
+          this.errorBag = response
         });
       }
     },

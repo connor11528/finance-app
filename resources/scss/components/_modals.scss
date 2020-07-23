@@ -1,0 +1,17 @@
+#modal-import-transactions {
+  .file-input-box {
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid $lightest-gray;
+    border-radius: 8px;
+    padding: 0 1rem;
+    font-size: 20px;
+
+    span.uk-link {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}

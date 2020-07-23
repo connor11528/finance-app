@@ -4,7 +4,7 @@
       <label class="uk-form-label" :for="`label-${action}-${transaction.id}`">Label</label>
       <input
       class="uk-input uk-form-large"
-      :class="{'uk-form-danger': errorBag && errorBag.errors.label}"
+      :class="{'uk-form-danger': errorBag && errorBag.data.errors.label}"
       type="text"
       v-model="transaction.label"
       :id="`label-${action}-${transaction.id}`"
@@ -16,7 +16,7 @@
       <flat-pickr
       :config="flatPickrConfig"
       class="uk-input uk-form-large"
-      :class="{'uk-form-danger': errorBag && errorBag.errors.date}"
+      :class="{'uk-form-danger': errorBag && errorBag.data.errors.date}"
       v-model="transaction.date"
       :id="`date-${action}-${transaction.id}`"
       required></flat-pickr>
@@ -26,7 +26,7 @@
       <label class="uk-form-label" :for="`amount-${action}-${transaction.id}`">Amount</label>
       <money
       class="uk-input uk-form-large"
-      :class="{'uk-form-danger': errorBag && errorBag.errors.amount}"
+      :class="{'uk-form-danger': errorBag && errorBag.data.errors.amount}"
       v-model.lazy="transaction.amount"
       v-bind="money"
       :id="`amount-${action}-${transaction.id}`"

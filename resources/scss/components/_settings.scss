@@ -24,7 +24,7 @@
 //region   Alert
 
 //$alert-margin-vertical: $global-margin;
-//$alert-padding: $global-small-gutter;
+$alert-padding: 1.375rem;
 //$alert-padding-right: $alert-padding + 14px;
 //$alert-background: $global-muted-background;
 //$alert-color: $global-color;
@@ -34,19 +34,24 @@
 //$alert-primary-color: $global-primary-background;
 //$alert-success-background: lighten(mix(white, $global-success-background, 40%), 25%);
 //$alert-success-color: $global-success-background;
-//$alert-warning-background: lighten(mix(white, $global-warning-background, 45%), 15%);
-//$alert-warning-color: $global-warning-background;
+$alert-warning-background: $global-warning-background;
+$alert-warning-color: $white;
 //$alert-danger-background: lighten(mix(white, $global-danger-background, 40%), 20%);
 //$alert-danger-color: $global-danger-background;
 
 @mixin hook-alert() {
   border-radius: 8px;
+  text-align: center;
+  font-size: 22px;
+  box-shadow: inset 0 0 0 2px rgba($black, .2);
 }
 //@mixin hook-alert-close() {}
 //@mixin hook-alert-close-hover() {}
 //@mixin hook-alert-primary() {}
 //@mixin hook-alert-success() {}
-//@mixin hook-alert-warning() {}
+@mixin hook-alert-warning() {
+  font-weight: 500;
+}
 //@mixin hook-alert-danger() {}
 //@mixin hook-alert-misc() {}
 
@@ -307,8 +312,8 @@ $button-padding-horizontal: 15px;
 //$button-danger-hover-color: $global-inverse-color;
 //$button-danger-active-background: darken($button-danger-background, 10%);
 //$button-danger-active-color: $global-inverse-color;
-//$button-disabled-background: $global-muted-background;
-//$button-disabled-color: $global-muted-color;
+$button-disabled-background: none;
+$button-disabled-color: white;
 //$button-text-line-height: $global-line-height;
 //$button-text-color: $global-muted-color;
 //$button-text-hover-color: $global-color;
@@ -385,7 +390,9 @@ $button-padding-horizontal: 15px;
 //@mixin hook-button-danger() {}
 //@mixin hook-button-danger-hover() {}
 //@mixin hook-button-danger-active() {}
-//@mixin hook-button-disabled() {}
+@mixin hook-button-disabled() {
+  cursor: not-allowed;
+}
 //@mixin hook-button-small() {}
 //@mixin hook-button-large() {}
 //@mixin hook-button-text() {}
@@ -1716,10 +1723,10 @@ $notification-message-success-color: $global-success-background;
 
 //region   Spinner
 
-//$spinner-size: 30px;
-//$spinner-stroke-width: 1;
-//$spinner-radius: floor(($spinner-size - $spinner-stroke-width) / 2);
-//$spinner-circumference: round(2 * 3.141 * $spinner-radius);
+$spinner-size: 20px;
+$spinner-stroke-width: 2;
+$spinner-radius: floor(($spinner-size - $spinner-stroke-width) / 2);
+$spinner-circumference: round(2 * 3.141 * $spinner-radius);
 //$spinner-duration: 1.4s;
 
 //@mixin hook-spinner() {}
