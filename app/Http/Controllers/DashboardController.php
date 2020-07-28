@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Transaction;
+use Illuminate\Support\Facades\Queue;
 
 class DashboardController extends Controller
 {
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke()
     {
-        $total_balance = DB::table('transactions')->sum('amount');
+        $totalBalance = Transaction::sum('amount');
 
         return response()->json([
-            'total_balance' => number_format(($total_balance / 100), 2, '.', ''),
-            'import_status' => jobIsQueued() ? true : false
-        ], 200);
+            'total_balance' => number_format($totalBalance / 100, 2, '.', ''),
+            'import_status' => Queue::size() > 0,
+        ]);
     }
 }

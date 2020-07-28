@@ -43,7 +43,7 @@
         importing: {
           status: false
         },
-        groups: []
+        groups: {},
       }
     },
 
@@ -64,7 +64,7 @@
 
           clearInterval(this.statusCheck);
 
-          this.groups = [];
+          this.groups = {};
 
           this.refreshDashboard();
         }
@@ -81,8 +81,8 @@
       },
 
 
-      getTransactions(page = this.groups.current_page || 1) {
-        this.groups = [];
+      getTransactions(page = this.groups?.meta?.current_page || 1) {
+        this.groups = {};
 
         this.$http.get('transactions', {
           params: {

@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     /**
-     * The attributes that should be mutated to dates.
+     * The attributes that should be cast.
      *
      * @var array
      */
-    protected $dates = ['date'];
+    protected $casts = [
+        'label' => 'string',
+        'date' => 'datetime',
+        'amount' => 'integer',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -19,37 +23,22 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-        'label', 'date', 'amount'
+        'label', 'date', 'amount',
     ];
 
     /**
-     * Prepare a date for array / JSON serialization.
-     *
-     * @param  \DateTimeInterface  $date
-     * @return string
-     */
-    protected function serializeDate(\DateTimeInterface $date)
-    {
-        return $date->format('Y-m-d H:i:s');
-    }
-
-    /**
      * Set the formatted transaction amount.
-     *
-     * @return void
      */
-    public function setAmountAttribute($value)
+    public function setAmountAttribute(float $value): void
     {
         $this->attributes['amount'] = (int) round($value * 100);
     }
 
     /**
      * Get the formatted transaction amount.
-     *
-     * @return void
      */
-    public function getAmountAttribute($value)
+    public function getAmountAttribute(int $value): float
     {
-        return (float) number_format(($value / 100), 2, '.', '');
+        return round($value / 100, 2);
     }
 }

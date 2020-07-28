@@ -24,9 +24,9 @@ class TransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'label'  => 'required',
-            'date'   => 'required|date',
-            'amount' => 'required|numeric|not_in:0'
+            'label' => ['required', 'string', 'max:255'],
+            'date' => ['required', 'date'],
+            'amount' => ['required', 'numeric', 'not_in:0'],
         ];
     }
 }

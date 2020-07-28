@@ -24,19 +24,19 @@
           </section>
         </section>
 
-        <section class="uk-flex uk-flex-center uk-flex-middle pagination" v-if="groups.last_page > 1">
+        <section class="uk-flex uk-flex-center uk-flex-middle pagination" v-if="groups.meta.last_page > 1">
           <button
           class="uk-button uk-button-small uk-button-default"
-          @click="paginate(groups.current_page - 1)"
+          @click="paginate(currentPage - 1)"
           :disabled="onFirstPage">
             <span uk-icon="chevron-left"></span>Prev
           </button>
 
-          <span class="page-no">Page {{ groups.current_page }}</span>
+          <span class="page-no">Page {{ groups.meta.current_page }}</span>
 
           <button
           class="uk-button uk-button-small uk-button-default"
-          @click="paginate(groups.current_page + 1)"
+          @click="paginate(currentPage + 1)"
           :disabled="!hasMorePages">
             Next<span uk-icon="chevron-right"></span>
           </button>
@@ -77,15 +77,19 @@
 
     computed: {
       hasTransactions() {
-        return this.groups.total;
+        return this.groups?.meta?.total;
+      },
+
+      currentPage() {
+        return this.groups?.meta?.current_page || 1;
       },
 
       onFirstPage() {
-        return this.groups.current_page === 1;
+        return this.currentPage === 1;
       },
 
       hasMorePages() {
-        return this.groups.current_page < this.groups.last_page;
+        return this.currentPage < this.groups?.meta?.last_page || 1;
       },
 
       loading() {
@@ -99,7 +103,7 @@
 
     methods: {
       paginate(page) {
-        this.$emit('paginate-list', {page});
+        this.$emit('paginate-list', {page: this.currentPage - 1});
       }
     }
   }
